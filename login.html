@@ -26,17 +26,29 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
+            // Hardcoded credentials
+            const correctEmail = "try@gmail.com";
+            const correctPassword = "12121212";
+
             if (!email) {
                 alert('Email is required. Please enter your email!');
                 return false; 
             }
 
             if (!password) {
-                alert('Password is required. Please enter your email!');
+                alert('Password is required. Please enter your password!');
                 return false;   
             }
 
-            return true; 
+            // Simulate the login logic
+            if (email === correctEmail && password === correctPassword) {
+                alert("Login successful! Welcome to the home page.");
+                window.location.href = "home.html"; // Redirect on successful login
+            } else {
+                alert("Invalid email or password. Please try again.");
+            }
+
+            return false; 
         }
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">  
@@ -45,13 +57,13 @@
     <div class="container">
         <h2>Login Form</h2> 
         <div id="error-message" style="color: red;"></div>
-        <form action="login.php" method="post" onsubmit="return validateLogin()">
+        <form onsubmit="return validateLogin()">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="on" >
+            <input type="email" id="email" placeholder="Enter your email" autocomplete="on" >
 
             <label for="password">Password:</label>
             <div class="password-container">
-                <input type="password" id="password" name="password" class="password-input" placeholder="Enter your password" autocomplete="off"    >
+                <input type="password" id="password" class="password-input" placeholder="Enter your password" autocomplete="off">
                 <i class="fas fa-eye-slash toggle-password" id="togglePassword" onclick="togglePasswordVisibility('password', 'togglePassword')"></i>
             </div>
 
@@ -67,10 +79,5 @@
             <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
         </div>
     </div>
-   
-
-
 </body>
-
-
 </html>
