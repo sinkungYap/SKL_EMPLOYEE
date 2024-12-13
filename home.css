@@ -1,13 +1,24 @@
 /* Global Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e7f1f9; /* Light blue background for a calm feel */
+    background-color: #e7f1f9;
     margin: 0;
     padding: 20px;
-    color: #2c3e50; /* Darker blue-gray for text */
+    color: #2c3e50;
     opacity: 0;
     animation: fadeIn 1s ease-in forwards;
+    
 }
+body.modal-open {
+  filter: grayscale(50%);
+  pointer-events: none;
+}
+
+.container {
+  /* ... 其他样式 ... */
+  pointer-events: auto; /* 确保初始状态下容器可交互 */
+}
+
 
 /* Container and Centering */
 .container {
@@ -18,7 +29,7 @@ body {
 
 /* Header Section */
 h1 {
-    color: #1a5276; /* A deeper blue */
+    color: #1a5276;
     font-size: 3rem;
     margin-bottom: 40px;
     font-weight: 700;
@@ -42,33 +53,9 @@ h1 {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    color: #2980b9; /* A bright blue for chapter titles */
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-p {
-    color: #555; /* Slightly lighter grey for body text */
-    line-height: 1.6;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-}
-
-/* Chapter Number */
-.chapter-number {
-    color: #1f618d; /* A slightly darker blue for chapter numbers */
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-}
-
 /* Buttons */
 button {
-    background-color: #3498db; /* Soft blue for buttons */
+    background-color: #3498db;
     color: white;
     padding: 12px 24px;
     border-radius: 25px;
@@ -80,16 +67,96 @@ button {
 }
 
 button:hover {
-    background-color: #2980b9; /* Darker blue on hover */
+    background-color: #2980b9;
     transform: translateY(-3px);
 }
 
-/* Footer */
-footer {
+/* Overlay to block clicks */
+.logout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* 确保遮罩层在确认框之上，但低于其他内容 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: visibility 0.3s, opacity 0.3s;
+    pointer-events: none;
+}
+
+.logout-overlay.active {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Confirmation Modal */
+.logout-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    max-width: 80%;
     text-align: center;
-    margin-top: 40px;
-    font-size: 1rem;
-    color: #777;
+    padding: 20px;
+    z-index: 1001;
+    transition: transform 0.3s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    
+}
+
+.logout-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+    visibility: visible;
+    opacity: 1;
+}
+
+.logout-modal h3 {
+    margin: 0 0 15px;
+    color: #333;
+}
+
+.logout-modal-buttons {
+    display: flex;
+    gap: 20px; /* Adjust gap as needed */
+}
+
+.logout-modal-buttons .logout-confirm {
+    padding: 10px 15px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-modal-buttons .logout-confirm:hover {
+    background-color: #1e8449;
+}
+
+.logout-modal-buttons .logout-cancel {
+    padding: 10px 15px;
+    background-color: #bdc3c7;
+    color: #2c3e50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-modal-buttons .logout-cancel:hover {
+    background-color: #95a5a6;
 }
 
 /* Fade-in Animation */
@@ -100,4 +167,24 @@ footer {
     to {
         opacity: 1;
     }
+}
+
+.blur-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    backdrop-filter: blur(5px); /* Adjust blur radius as needed */
+    z-index: 999; /* Ensure it's behind the modal */
+    display: none; /* Initially hidden */
+}
+
+.blur-background.active {
+    display: block;
+}
+
+h3{
+    color: #e7f1f9;
 }
